@@ -105,7 +105,7 @@
         
         /* تصميم النموذج */
         .registration-form {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
@@ -168,6 +168,44 @@
         .btn-lg {
             padding: 12px 35px;
             font-size: 1.1rem;
+        }
+        
+        /* تصميم اختيار الرياضات */
+        .sports-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .sport-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sport-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .sport-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(26, 82, 118, 0.05);
+        }
+        
+        .sport-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .sport-name {
+            font-weight: bold;
+            color: var(--dark-color);
         }
         
         /* رسائل التحقق */
@@ -278,6 +316,10 @@
             .form-body {
                 padding: 15px;
             }
+            
+            .sports-selection {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
@@ -290,7 +332,7 @@
                     <div class="logo-container">
                         <img src="logo.jpg" alt="شعار نادي الجبيل الرياضي" width="50" height="50">
                     </div>
-                    <span class="logo-text">نادي الجبيل الرياضي<br><small>فريق ألعاب القوى</small></span>
+                    <span class="logo-text">نادي الجبيل الرياضي<br><small>تسجيل اللاعبين الجدد</small></span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -330,10 +372,66 @@
             <div class="col-lg-10">
                 <section class="main-content">
                     <h2 class="section-title text-center">تسجيل لاعب جديد</h2>
-                    <p class="text-center mb-4">يرجى تعبئة النموذج التالي بجميع البيانات المطلوبة للتسجيل في نادي الجبيل الرياضي - فريق ألعاب القوى</p>
+                    <p class="text-center mb-4">يرجى تعبئة النموذج التالي بجميع البيانات المطلوبة للتسجيل في نادي الجبيل الرياضي</p>
                     
                     <div class="registration-form">
                         <form id="playerRegistrationForm" novalidate>
+                            <!-- اختيار الرياضة -->
+                            <div class="form-card">
+                                <div class="form-header">
+                                    <h4 class="mb-0"><i class="fas fa-running me-2"></i>اختيار الرياضة</h4>
+                                </div>
+                                <div class="form-body">
+                                    <p class="form-label">الرجاء اختيار الرياضة التي ترغب في التسجيل بها <span class="text-danger">*</span></p>
+                                    <div class="sports-selection">
+                                        <div class="sport-card" data-sport="athletics">
+                                            <div class="sport-icon">
+                                                <i class="fas fa-running"></i>
+                                            </div>
+                                            <div class="sport-name">ألعاب القوى</div>
+                                        </div>
+                                        <div class="sport-card" data-sport="volleyball">
+                                            <div class="sport-icon">
+                                                <i class="fas fa-volleyball-ball"></i>
+                                            </div>
+                                            <div class="sport-name">الكرة الطائرة</div>
+                                        </div>
+                                        <div class="sport-card" data-sport="basketball">
+                                            <div class="sport-icon">
+                                                <i class="fas fa-basketball-ball"></i>
+                                            </div>
+                                            <div class="sport-name">كرة السلة</div>
+                                        </div>
+                                        <div class="sport-card" data-sport="taekwondo">
+                                            <div class="sport-icon">
+                                                <i class="fas fa-user-ninja"></i>
+                                            </div>
+                                            <div class="sport-name">التايكوندو</div>
+                                        </div>
+                                        <div class="sport-card" data-sport="karate">
+                                            <div class="sport-icon">
+                                                <i class="fas fa-fist-raised"></i>
+                                            </div>
+                                            <div class="sport-name">الكراتيه</div>
+                                        </div>
+                                        <div class="sport-card" data-sport="swimming">
+                                            <div class="sport-icon">
+                                                <i class="fas fa-swimmer"></i>
+                                            </div>
+                                            <div class="sport-name">السباحة</div>
+                                        </div>
+                                        <div class="sport-card" data-sport="judo">
+                                            <div class="sport-icon">
+                                                <i class="fas fa-user-friends"></i>
+                                            </div>
+                                            <div class="sport-name">الجودو</div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="selectedSport" name="selectedSport" required>
+                                    <div class="invalid-feedback">يرجى اختيار رياضة واحدة على الأقل</div>
+                                </div>
+                            </div>
+                            
                             <!-- المعلومات الشخصية -->
                             <div class="form-card">
                                 <div class="form-header">
@@ -347,18 +445,31 @@
                                             <div class="invalid-feedback">يرجى إدخال الاسم الكامل</div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="idNumber" class="form-label">رقم الهوية الوطنية <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="idNumber" maxlength="10" required>
-                                            <div class="invalid-feedback">يرجى إدخال رقم هوية وطني صحيح (10 أرقام)</div>
+                                            <label for="documentType" class="form-label">نوع الوثيقة <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="documentType" required>
+                                                <option value="" selected disabled>اختر نوع الوثيقة</option>
+                                                <option value="id">بطاقة هوية وطنية</option>
+                                                <option value="residence">إقامة</option>
+                                                <option value="visa">تأشيرة</option>
+                                            </select>
+                                            <div class="invalid-feedback">يرجى اختيار نوع الوثيقة</div>
                                         </div>
                                     </div>
                                     
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
+                                            <label for="idNumber" class="form-label">رقم الوثيقة <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="idNumber" required>
+                                            <div class="invalid-feedback">يرجى إدخال رقم الوثيقة</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
                                             <label for="birthDate" class="form-label">تاريخ الميلاد <span class="text-danger">*</span></label>
                                             <input type="date" class="form-control" id="birthDate" required>
                                             <div class="invalid-feedback">يرجى إدخال تاريخ الميلاد</div>
                                         </div>
+                                    </div>
+                                    
+                                    <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="gender" class="form-label">الجنس <span class="text-danger">*</span></label>
                                             <select class="form-select" id="gender" required>
@@ -368,14 +479,14 @@
                                             </select>
                                             <div class="invalid-feedback">يرجى اختيار الجنس</div>
                                         </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nationality" class="form-label">الجنسية <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="nationality" required>
+                                            <div class="invalid-feedback">يرجى إدخال الجنسية</div>
+                                        </div>
                                     </div>
                                     
                                     <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="nationality" class="form-label">الجنسية <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="nationality" value="سعودي" required>
-                                            <div class="invalid-feedback">يرجى إدخال الجنسية</div>
-                                        </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="bloodType" class="form-label">فصيلة الدم</label>
                                             <select class="form-select" id="bloodType">
@@ -389,6 +500,17 @@
                                                 <option value="AB+">AB+</option>
                                                 <option value="AB-">AB-</option>
                                             </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="weight" class="form-label">الوزن (كجم)</label>
+                                            <input type="number" class="form-control" id="weight" min="1" max="200">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="height" class="form-label">الطول (سم)</label>
+                                            <input type="number" class="form-control" id="height" min="50" max="250">
                                         </div>
                                     </div>
                                 </div>
@@ -454,17 +576,6 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="sportType" class="form-label">نوع الرياضة <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="sportType" required>
-                                                <option value="" selected disabled>اختر نوع الرياضة</option>
-                                                <option value="running">الجري</option>
-                                                <option value="jumping">القفز</option>
-                                                <option value="throwing">الرمي</option>
-                                                <option value="combined">المتعددة</option>
-                                            </select>
-                                            <div class="invalid-feedback">يرجى اختيار نوع الرياضة</div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
                                             <label for="experience" class="form-label">المستوى / الخبرة <span class="text-danger">*</span></label>
                                             <select class="form-select" id="experience" required>
                                                 <option value="" selected disabled>اختر مستوى الخبرة</option>
@@ -474,6 +585,20 @@
                                                 <option value="professional">محترف</option>
                                             </select>
                                             <div class="invalid-feedback">يرجى اختيار مستوى الخبرة</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="trainingDays" class="form-label">الأيام المتاحة للتدريب <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="trainingDays" required multiple>
+                                                <option value="saturday">السبت</option>
+                                                <option value="sunday">الأحد</option>
+                                                <option value="monday">الاثنين</option>
+                                                <option value="tuesday">الثلاثاء</option>
+                                                <option value="wednesday">الأربعاء</option>
+                                                <option value="thursday">الخميس</option>
+                                                <option value="friday">الجمعة</option>
+                                            </select>
+                                            <div class="form-text">اضغط مع الاستمرار على Ctrl لتحديد أكثر من يوم</div>
+                                            <div class="invalid-feedback">يرجى اختيار الأيام المتاحة للتدريب</div>
                                         </div>
                                     </div>
                                     
@@ -505,7 +630,7 @@
                                         <label class="form-label">المرفقات</label>
                                         <div class="mb-2">
                                             <input type="file" class="form-control" id="idCopy" accept=".pdf,.jpg,.jpeg,.png">
-                                            <div class="form-text">صورة من الهوية الوطنية</div>
+                                            <div class="form-text">صورة من الوثيقة (بطاقة/إقامة/تأشيرة)</div>
                                         </div>
                                         <div class="mb-2">
                                             <input type="file" class="form-control" id="medicalReport" accept=".pdf,.jpg,.jpeg,.png">
@@ -568,7 +693,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4">
                     <h5>عن النادي</h5>
-                    <p>نادي الجبيل الرياضي - فريق ألعاب القوى هو أحد أبرز الفرق الرياضية في المنطقة الشرقية من المملكة العربية السعودية، ويهدف إلى اكتشاف المواهب الرياضية وتطويرها.</p>
+                    <p>نادي الجبيل الرياضي هو أحد أبرز الأندية الرياضية في المنطقة الشرقية من المملكة العربية السعودية، ويهدف إلى اكتشاف المواهب الرياضية وتطويرها.</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -590,7 +715,7 @@
                     <h5>اتصل بنا</h5>
                     <ul class="footer-links">
                         <li><i class="fas fa-map-marker-alt"></i> الجبيل، المنطقة الشرقية، السعودية</li>
-                        <li><i class="fas fa-phone"></i> +966 </li>
+                        <li><i class="fas fa-phone"></i> +966 051 843 1943</li>
                         <li><i class="fas fa-envelope"></i> info@jubailclub.com</li>
                     </ul>
                 </div>
@@ -606,7 +731,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>جميع الحقوق محفوظة &copy; 2025 نادي الجبيل الرياضي - فريق ألعاب القوى</p>
+                <p>جميع الحقوق محفوظة &copy; 2025 نادي الجبيل الرياضي</p>
             </div>
         </div>
     </footer>
@@ -617,24 +742,25 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('playerRegistrationForm');
             const successMessage = document.getElementById('successMessage');
+            const sportCards = document.querySelectorAll('.sport-card');
+            const selectedSportInput = document.getElementById('selectedSport');
             
-            // التحقق من رقم الهوية السعودية
-            function validateSaudiId(id) {
-                // يجب أن يتكون من 10 أرقام
-                if (!/^\d{10}$/.test(id)) return false;
-                
-                // التحقق من صحة رقم الهوية باستخدام خوارزمية التحقق
-                let sum = 0;
-                for (let i = 0; i < 10; i++) {
-                    if (i % 2 === 0) {
-                        let doubled = parseInt(id.charAt(i)) * 2;
-                        sum += doubled > 9 ? doubled - 9 : doubled;
-                    } else {
-                        sum += parseInt(id.charAt(i));
-                    }
-                }
-                return sum % 10 === 0;
-            }
+            // اختيار الرياضة
+            sportCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // إزالة التحديد من جميع البطاقات
+                    sportCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // إضافة التحديد للبطاقة المختارة
+                    this.classList.add('selected');
+                    
+                    // تعيين القيمة في الحقل المخفي
+                    selectedSportInput.value = this.getAttribute('data-sport');
+                    
+                    // إزالة رسالة الخطأ إذا كانت موجودة
+                    selectedSportInput.classList.remove('is-invalid');
+                });
+            });
             
             // التحقق من البريد الإلكتروني
             function validateEmail(email) {
@@ -650,21 +776,6 @@
             }
             
             // إضافة مستمعات الأحداث للحقول
-            const idNumberInput = document.getElementById('idNumber');
-            idNumberInput.addEventListener('input', function() {
-                if (this.value.length === 10) {
-                    if (validateSaudiId(this.value)) {
-                        this.classList.remove('is-invalid');
-                        this.classList.add('is-valid');
-                    } else {
-                        this.classList.remove('is-valid');
-                        this.classList.add('is-invalid');
-                    }
-                } else {
-                    this.classList.remove('is-valid', 'is-invalid');
-                }
-            });
-            
             const emailInput = document.getElementById('email');
             emailInput.addEventListener('blur', function() {
                 if (this.value && !validateEmail(this.value)) {
@@ -705,6 +816,14 @@
                 
                 let isValid = true;
                 
+                // التحقق من اختيار الرياضة
+                if (!selectedSportInput.value) {
+                    selectedSportInput.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    selectedSportInput.classList.remove('is-invalid');
+                }
+                
                 // التحقق من الحقول الإلزامية
                 const requiredFields = form.querySelectorAll('[required]');
                 requiredFields.forEach(field => {
@@ -715,10 +834,7 @@
                         field.classList.remove('is-invalid');
                         
                         // التحقق من صحة البيانات الخاصة
-                        if (field.id === 'idNumber' && !validateSaudiId(field.value)) {
-                            field.classList.add('is-invalid');
-                            isValid = false;
-                        } else if (field.id === 'email' && !validateEmail(field.value)) {
+                        if (field.id === 'email' && !validateEmail(field.value)) {
                             field.classList.add('is-invalid');
                             isValid = false;
                         } else if ((field.id === 'phone' || field.id === 'emergencyContact') && !validatePhone(field.value)) {
@@ -737,6 +853,7 @@
                     
                     // هنا يمكن إضافة كود لإرسال البيانات إلى الخادم
                     console.log('تم إرسال النموذج بنجاح!');
+                    console.log('الرياضة المختارة:', document.querySelector('.sport-card.selected .sport-name').textContent);
                 }
             });
             
@@ -747,6 +864,10 @@
                 formControls.forEach(control => {
                     control.classList.remove('is-valid', 'is-invalid');
                 });
+                
+                // إزالة التحديد من البطاقات
+                sportCards.forEach(card => card.classList.remove('selected'));
+                selectedSportInput.value = '';
                 
                 // إعادة إظهار النموذج إذا كان مخفيًا
                 form.style.display = 'block';
