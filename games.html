@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="الألعاب المختلفة - نادي الجبيل الرياضي">
+<title>الألعاب المختلفة | نادي الجبيل</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* Games Page Specific Styles */
+.games-hero{min-height:50vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:140px;background:linear-gradient(135deg,#1a0a2e,#2d1b4e)}
+.games-hero-content{text-align:center;color:#fff;max-width:800px;padding:0 20px;position:relative;z-index:1}
+.games-hero-content h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;margin-bottom:15px}
+.games-hero-content p{font-size:clamp(1rem,2vw,1.2rem);opacity:.85}
+
+.games-section{padding:80px 0;background:var(--gray)}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;max-width:1100px;margin:auto}
+.game-card{background:var(--white);border-radius:24px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);transition:var(--transition);overflow:hidden;text-align:center;padding:45px 30px;position:relative}
+.game-card::before{content:"";position:absolute;top:0;left:0;right:0;height:0;background:linear-gradient(180deg,rgba(247,214,24,.08),transparent);transition:height .4s}
+.game-card:hover::before{height:100%}
+.game-card:hover{transform:translateY(-12px);box-shadow:var(--shadow-lg);border-color:rgba(247,214,24,.15)}
+.game-icon{width:90px;height:90px;background:linear-gradient(135deg,rgba(247,214,24,.12),rgba(247,214,24,.05));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:2.4rem;color:var(--primary);transition:var(--transition);border:1px solid rgba(247,214,24,.2);position:relative;z-index:1}
+.game-card:hover .game-icon{transform:scale(1.1) rotate(5deg);box-shadow:var(--shadow-gold)}
+.game-card h3{font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:6px;position:relative;z-index:1}
+.game-en{color:var(--text-light);font-size:.9rem;font-weight:600;margin-bottom:16px;position:relative;z-index:1}
+.game-card p{color:var(--text-light);font-size:.95rem;line-height:1.7;margin-bottom:22px;position:relative;z-index:1}
+.game-btn{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:var(--dark);padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:800;font-size:.9rem;transition:var(--transition);position:relative;z-index:1;border:none;cursor:pointer}
+.game-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-gold)}
+
+.registration-section{padding:100px 0;background:var(--white)}
+.registration-card{max-width:700px;margin:0 auto;background:var(--gray);border-radius:28px;padding:55px 40px;text-align:center;box-shadow:var(--shadow-lg);border:1px solid rgba(0,0,0,.04)}
+.registration-card h3{font-size:1.6rem;font-weight:800;color:var(--dark);margin-bottom:12px}
+.registration-card p{color:var(--text-light);margin-bottom:30px;font-size:1.05rem}
+.reg-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:35px}
+.reg-badge{background:var(--white);padding:10px 20px;border-radius:50px;font-weight:700;font-size:.85rem;color:var(--dark);border:1px solid rgba(0,0,0,.06);display:flex;align-items:center;gap:8px}
+.reg-badge i{color:var(--primary)}
+.reg-btn{display:inline-flex;align-items:center;gap:12px;background:var(--primary);color:var(--dark);padding:18px 40px;border-radius:50px;text-decoration:none;font-weight:800;font-size:1.1rem;transition:var(--transition);box-shadow:var(--shadow-gold)}
+.reg-btn:hover{transform:translateY(-3px);box-shadow:0 15px 50px rgba(247,214,24,.4)}
+.reg-btn i{font-size:1.2rem}
+
+.contact-small{padding:60px 0;background:linear-gradient(135deg,#1a0a2e,#111)}
+.contact-small-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:900px;margin:auto}
+.contact-small-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:20px;padding:35px 25px;text-align:center;color:#fff;transition:var(--transition)}
+.contact-small-card:hover{transform:translateY(-8px);border-color:rgba(247,214,24,.2);box-shadow:0 25px 60px rgba(0,0,0,.2)}
+.contact-small-icon{width:55px;height:55px;background:rgba(247,214,24,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.4rem;color:var(--primary)}
+.contact-small-card h4{font-size:1.15rem;font-weight:800;margin-bottom:6px}
+.contact-small-card p{color:rgba(255,255,255,.6);font-size:.95rem;margin-bottom:16px}
+.contact-small-link{color:var(--primary);text-decoration:none;font-weight:800;font-size:.9rem;transition:var(--transition)}
+.contact-small-link:hover{color:#fff}
+
+@media(max-width:768px){
+.games-hero{padding-top:110px;min-height:40vh}
+.game-card{padding:35px 20px}
+.registration-card{padding:40px 25px}
+}
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div class="loader" id="loader"><div class="loader-ring"></div><div class="loader-text">نادي الجبيل</div></div>
+
+<!-- Top Bar -->
+<div class="top-bar" id="topBar">
+  <div class="marquee"><span> صعود تاريخي لدوري يلو 2024</span><span> تابعنا على X @Jubailclub</span><span> فخر الجبيل في دوري الدرجة الأولى</span><span> نادي رياضي اجتماعي ثقافي منذ 1961</span><span> أكثر من 64 عاما من العطاء</span></div>
+</div>
+
+<!-- Header -->
+<header id="header">
+  <nav class="navbar">
+    <a href="index.html" class="logo"><img src="5YgDyhTA_400x400.jpg" alt="شعار"><span class="logo-text" data-ar="نادي الجبيل" data-en="Al-Jubail FC">نادي الجبيل</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+      <li><a href="index.html#about" data-ar="عن النادي" data-en="About">عن النادي</a></li>
+      <li><a href="games.html" class="active" data-ar="الألعاب المختلفة" data-en="Games">الألعاب المختلفة</a></li>
+      <li><a href="index.html#slider" data-ar="أبرز الأخبار" data-en="Top News">أبرز الأخبار</a></li>
+      <li><a href="index.html#contact" data-ar="تواصل" data-en="Contact">تواصل</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="lang-switcher"><button id="lang-btn"><i class="fas fa-globe"></i><span>English</span></button></div>
+      <div class="burger" id="burger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="games-hero">
+  <div class="games-hero-content reveal-up">
+    <h1 data-ar="الألعاب المختلفة" data-en="Various Sports" data-root="true">الألعاب المختلفة</h1>
+    <p data-ar="اختر لعبتك المفضلة وسجل الآن في نادي الجبيل الرياضي" data-en="Choose your favorite sport and register now at Al-Jubail Sports Club">اختر لعبتك المفضلة وسجل الآن في نادي الجبيل الرياضي</p>
+  </div>
+</section>
+
+<!-- Games Section -->
+<section id="games" class="games-section">
+  <div class="container">
+    <h2 class="section-title reveal-up" data-ar="الألعاب المتوفرة" data-en="Available Sports">الألعاب المتوفرة</h2>
+    <div class="games-grid">
+      <div class="game-card reveal-up">
+        <div class="game-icon"><i class="fas fa-person-running"></i></div>
+        <h3 data-ar="ألعاب القوى" data-en="Athletics">ألعاب القوى</h3>
+        <div class="game-en" data-ar="ألعاب القوى" data-en="Athletics">Athletics</div>
+        <p data-ar="الجري القفز الرمي سباقات المضمار والميدان لفئات عمرية متعددة." data-en="Running, jumping, throwing, track and field events for multiple age groups.">الجري القفز الرمي سباقات المضمار والميدان لفئات عمرية متعددة.</p>
+        <a href="https://forms.gle/zkXtmSjxVjgAmQhH6" target="_blank" class="game-btn"><i class="fas fa-check-circle"></i> <span data-ar="تسجيل" data-en="Register">تسجيل</span></a>
+      </div>
+      <div class="game-card reveal-up">
+        <div class="game-icon"><i class="fas fa-volleyball"></i></div>
+        <h3 data-ar="الكرة الطائرة" data-en="Volleyball">الكرة الطائرة</h3>
+        <div class="game-en" data-ar="الكرة الطائرة" data-en="Volleyball">Volleyball</div>
+        <p data-ar="فرق رجال وسيدات تدريب احترافي وصالات مكيفة." data-en="Men and women teams, professional training and air-conditioned halls.">فرق رجال وسيدات تدريب احترافي وصالات مكيفة.</p>
+        <a href="https://forms.gle/zkXtmSjxVjgAmQhH6" target="_blank" class="game-btn"><i class="fas fa-check-circle"></i> <span data-ar="تسجيل" data-en="Register">تسجيل</span></a>
+      </div>
+      <div class="game-card reveal-up">
+        <div class="game-icon"><i class="fas fa-basketball"></i></div>
+        <h3 data-ar="كرة السلة" data-en="Basketball">كرة السلة</h3>
+        <div class="game-en" data-ar="كرة السلة" data-en="Basketball">Basketball</div>
+        <p data-ar="أكاديمية السلة للناشئين والمحترفين بطولات داخلية." data-en="Basketball academy for juniors and professionals, internal tournaments.">أكاديمية السلة للناشئين والمحترفين بطولات داخلية.</p>
+        <a href="https://forms.gle/zkXtmSjxVjgAmQhH6" target="_blank" class="game-btn"><i class="fas fa-check-circle"></i> <span data-ar="تسجيل" data-en="Register">تسجيل</span></a>
+      </div>
+      <div class="game-card reveal-up">
+        <div class="game-icon"><i class="fas fa-hand-fist"></i></div>
+        <h3 data-ar="الكاراتيه" data-en="Karate">الكاراتيه</h3>
+        <div class="game-en" data-ar="الكاراتيه" data-en="Karate">Karate</div>
+        <p data-ar="تدريب على المهارات القتالية والدفاع عن النفس بقيادة مدربين معتمدين." data-en="Combat skills and self-defense training led by certified coaches.">تدريب على المهارات القتالية والدفاع عن النفس بقيادة مدربين معتمدين.</p>
+        <a href="https://forms.gle/zkXtmSjxVjgAmQhH6" target="_blank" class="game-btn"><i class="fas fa-check-circle"></i> <span data-ar="تسجيل" data-en="Register">تسجيل</span></a>
+      </div>
+      <div class="game-card reveal-up">
+        <div class="game-icon"><i class="fas fa-user-ninja"></i></div>
+        <h3 data-ar="التايكوندو" data-en="Taekwondo">التايكوندو</h3>
+        <div class="game-en" data-ar="التايكوندو" data-en="Taekwondo">Taekwondo</div>
+        <p data-ar="دروس للأطفال والكبار أحزمة ورحلات تدريبية." data-en="Lessons for children and adults, belts and training camps.">دروس للأطفال والكبار أحزمة ورحلات تدريبية.</p>
+        <a href="https://forms.gle/zkXtmSjxVjgAmQhH6" target="_blank" class="game-btn"><i class="fas fa-check-circle"></i> <span data-ar="تسجيل" data-en="Register">تسجيل</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Registration Section -->
+<section class="registration-section">
+  <div class="container">
+    <div class="registration-card reveal-up">
+      <h3 data-ar="اختر لعبتك وسجل الآن" data-en="Choose Your Sport & Register">اختر لعبتك وسجل الآن</h3>
+      <p data-ar="جميع الألعاب متاحة للجنسين (رجال - نساء) حسب الفئات العمرية" data-en="All sports are available for both genders according to age groups.">جميع الألعاب متاحة للجنسين (رجال - نساء) حسب الفئات العمرية</p>
+      <div class="reg-badges">
+        <span class="reg-badge"><i class="fas fa-medal"></i> <span data-ar="ألعاب قوى" data-en="Athletics">ألعاب قوى</span></span>
+        <span class="reg-badge"><i class="fas fa-volleyball"></i> <span data-ar="طائرة" data-en="Volleyball">طائرة</span></span>
+        <span class="reg-badge"><i class="fas fa-basketball"></i> <span data-ar="سلة" data-en="Basketball">سلة</span></span>
+        <span class="reg-badge"><i class="fas fa-hand-fist"></i> <span data-ar="كاراتيه" data-en="Karate">كاراتيه</span></span>
+        <span class="reg-badge"><i class="fas fa-user-ninja"></i> <span data-ar="تايكوندو" data-en="Taekwondo">تايكوندو</span></span>
+      </div>
+      <a href="https://forms.gle/zkXtmSjxVjgAmQhH6" target="_blank" class="reg-btn">
+        <i class="fas fa-arrow-left"></i>
+        <span data-ar="الذهاب إلى نموذج التسجيل" data-en="Go to Registration Form">الذهاب إلى نموذج التسجيل</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Small -->
+<section class="contact-small">
+  <div class="container">
+    <h2 class="section-title light reveal-up" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h2>
+    <div class="contact-small-grid">
+      <div class="contact-small-card reveal-up">
+        <div class="contact-small-icon"><i class="fab fa-whatsapp"></i></div>
+        <h4 data-ar="واتساب" data-en="WhatsApp">واتساب</h4>
+        <p>+966 56 009 5567</p>
+        <a href="https://wa.me/966560095567" target="_blank" class="contact-small-link" data-ar="تواصل عبر واتساب" data-en="Contact via WhatsApp">تواصل عبر واتساب</a>
+      </div>
+      <div class="contact-small-card reveal-up">
+        <div class="contact-small-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h4 data-ar="هاتف" data-en="Phone">هاتف</h4>
+        <p>+966 54 821 4088</p>
+        <a href="tel:+966548214088" class="contact-small-link" data-ar="اتصل الآن" data-en="Call Now">اتصل الآن</a>
+      </div>
+      <div class="contact-small-card reveal-up">
+        <div class="contact-small-icon"><i class="fas fa-envelope"></i></div>
+        <h4 data-ar="بريد إلكتروني" data-en="Email">بريد إلكتروني</h4>
+        <p>alansari.jubail.sports@gmail.com</p>
+        <a href="mailto:alansari.jubail.sports@gmail.com" class="contact-small-link" data-ar="أرسل بريد" data-en="Send Email">أرسل بريد</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand reveal-up">
+          <img src="5YgDyhTA_400x400.jpg" alt="شعار">
+          <h3 data-ar="نادي الجبيل" data-en="Al-Jubail FC">نادي الجبيل</h3>
+          <p data-ar="فخر الجبيل في دوري يلو" data-en="Pride of Jubail">فخر الجبيل في دوري يلو</p>
+        </div>
+        <div class="footer-links reveal-up">
+          <h4 data-ar="الأقسام" data-en="Sections">الأقسام</h4>
+          <ul>
+            <li><a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+            <li><a href="index.html#about" data-ar="عن النادي" data-en="About">عن النادي</a></li>
+            <li><a href="games.html" data-ar="الألعاب المختلفة" data-en="Games">الألعاب المختلفة</a></li>
+            <li><a href="index.html#slider" data-ar="الأخبار" data-en="News">الأخبار</a></li>
+          </ul>
+        </div>
+        <div class="footer-social reveal-up">
+          <h4 data-ar="تابعنا" data-en="Follow Us">تابعنا</h4>
+          <div class="socials">
+            <a href="https://x.com/Jubailclub" target="_blank" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.linkedin.com/company/jubailclub" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container"><p data-ar="نادي الجبيل الرياضي - جميع الحقوق محفوظة 2025" data-en="Al-Jubail Sports Club - All Rights Reserved 2025">نادي الجبيل الرياضي - جميع الحقوق محفوظة 2025</p></div></div>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+<script src="script.js"></script>
+</body>
+</html>
